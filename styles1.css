@@ -1,0 +1,70 @@
+			h1{
+				text-align:center;
+				color:white;
+			}
+			a{
+				color: #87CEEB
+			}
+			img{
+				position:relative;
+				left:32%;
+				margin-left:-180px
+			}
+			p{	
+				text-indent: 32px;
+				font-size: 16px;
+				line-height: 32px
+			}
+
+			<!--这一部分是调整文字和文字后面那个白色呃背景的-->
+			<!--该部分改为了视频背景body{
+				background-image: url("photo/03.png")
+				}-->
+			blockquote{
+				display:block;
+				<!--白色背景把我炫酷的背景挡住了，不要了background: #fff;-->
+				background:rgba(255,255,255,0.9);
+				padding: 15px 20px 15px 45px;
+				margin: 0 0 20px;
+				position: relative;
+
+				/*字体*/
+				font-family: Georgia,serif;
+				font-size: 16px;
+				line-height: 1.2;
+				color: #666;
+				text-align: justify;
+
+				/*边框-（选项）*/
+				border-left: 15px solid #429296;
+				border-right: 2px solid #429296;
+
+				/*盒子阴影-（选项）*/
+				-moz-box-shadow: 2px 2px 15px #ccc;
+				-webkit-box-shadow: 2px 2px 15px #ccc;
+				box-shadow: 2px 2px 15px #ccc;
+				}
+				blockquote: :before {
+					font-size: 40px;
+					color: #429296;
+					content:"\201C";
+
+				/*位置*/
+				position: absolute;
+				left:10px;
+				top:5px;
+				}
+				blockquote: :after
+					content:"";/*如果要显示右双引号，则写content:"\201D";*/
+				}
+				
+
+
+
+
+
+
+
+
+
+

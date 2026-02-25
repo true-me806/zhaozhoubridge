@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<title>词云</title>
+		<style>
+			html,body{ margin:0; padding:0; height:100%; background:#0a0a1a; }
+			#container{ width:100%; height:100%; }
+		</style>
+	</head>
+
+	<body>
+
+		<div id="container"></div>
+
+		<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+
+		<script>
+			const textList = [
+  			'世界闻名','雄伟','坚固','美观','创举',
+			'李春','隋朝','河北省','赵县','洨河','石拱桥',
+			'大桥洞','小桥洞','拱形','设计','图案','栏板',
+			'雕刻','缠绕','回首','遥望','双龙戏珠','游动','吐水',
+			'智慧','才干','宝贵','遗产','历史','劳动人民'
+			];
+
+
+			const scene = new THREE.Scene();
+			const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
+			const renderer = new THREE.WebGLRenderer({ antialias:true });
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.getElementById("container").appendChild(renderer.domElement);
+
+			// 鼠标控制
+			const controls = new THREE.OrbitControls(camera, renderer.domElement);
+			controls.enableDamping = true;
+			controls.dampingFactor = 0.05;
+
+			camera.position.z = 300;
+
+			// 生成3D文字球
+			const group = new THREE.Group();
+			scene.add(group);
+
+	
+			//这里由于内容只显示最后一个标签，所以在此处我直接用了一个for循环，逐步将词添加到cancas上
+			textList.forEach((text, i) => {
+				const fontCanvas = document.createElement('canvas');
+				const fontCtx = fontCanvas.getContext('2d');
+				fontCanvas.width = 256; fontCanvas.height = 256;
+  				fontCtx.clearRect(0,0,256,256);
+  				fontCtx.font = "bold 40px Microsoft YaHei";
+  				fontCtx.fillStyle = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`;
+  				fontCtx.textAlign = "center";
+  				fontCtx.fillText(text, 128, 140);
+
+  				const texture = new THREE.CanvasTexture(fontCanvas);
+  				const material = new THREE.SpriteMaterial({ map:texture });
+  				const sprite = new THREE.Sprite(material);
+
+  				const phi = Math.acos(-1 + (2*i)/textList.length);
+  				const theta = Math.sqrt(textList.length*Math.PI)*phi;
+
+  				const r = 150;
+  				sprite.position.set(
+    					r*Math.sin(phi)*Math.cos(theta),
+    					r*Math.sin(phi)*Math.sin(theta),
+    					r*Math.cos(phi)
+  					);
+  				sprite.scale.set(80,40,1);
+  				group.add(sprite);
+				});
+
+				// 旋转 + 渲染循环
+				function animate(){
+  					requestAnimationFrame(animate);
+  					group.rotation.y += 0.002;
+  					controls.update();
+  					renderer.render(scene, camera);
+			}
+			animate();
+
+			window.addEventListener('resize', ()=>{
+  				camera.aspect = window.innerWidth/window.innerHeight;
+  				camera.updateProjectionMatrix();
+  				renderer.setSize(window.innerWidth, window.innerHeight);
+			});
+		</script>
+	</body>
+</html>
