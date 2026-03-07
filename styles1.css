@@ -1,9 +1,10 @@
+			/*=====文字及其图片等设置======*/
 			h1{
 				text-align:center;
 				color:white;
 			}
 			a{
-				color: #87CEEB
+				color: #40b4e1
 			}
 			img{
 				position:relative;
@@ -16,14 +17,15 @@
 				line-height: 32px
 			}
 
-			<!--这一部分是调整文字和文字后面那个白色呃背景的-->
-			<!--该部分改为了视频背景body{
+			/*=====文字介绍背景=======*/
+
+			/*该部分调整为视频背景body{
 				background-image: url("photo/03.png")
-				}-->
+				}*/
 			blockquote{
 				display:block;
-				<!--白色背景把我炫酷的背景挡住了，不要了background: #fff;-->
-				background:rgba(255,255,255,0.9);
+				/*白色背景把我炫酷的背景挡住了，不要了background: #fff;*/
+				background:rgba(255,255,255,0.5);
 				padding: 15px 20px 15px 45px;
 				margin: 0 0 20px;
 				position: relative;
@@ -35,16 +37,16 @@
 				color: #666;
 				text-align: justify;
 
-				/*边框-（选项）*/
+				/*边框*/
 				border-left: 15px solid #429296;
 				border-right: 2px solid #429296;
 
-				/*盒子阴影-（选项）*/
+				/*盒子阴影*/
 				-moz-box-shadow: 2px 2px 15px #ccc;
 				-webkit-box-shadow: 2px 2px 15px #ccc;
 				box-shadow: 2px 2px 15px #ccc;
 				}
-				blockquote: :before {
+				blockquote::before {
 					font-size: 40px;
 					color: #429296;
 					content:"\201C";
@@ -54,17 +56,3 @@
 				left:10px;
 				top:5px;
 				}
-				blockquote: :after
-					content:"";/*如果要显示右双引号，则写content:"\201D";*/
-				}
-				
-
-
-
-
-
-
-
-
-
-

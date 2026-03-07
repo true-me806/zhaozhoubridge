@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+    		<meta charset="UTF-8">
+    		<title>赵州桥AI</title>
+    		<style>
+        		* {
+            			margin: 0;
+            			padding: 0;
+            			box-sizing: border-box;
+            			font-family: "Microsoft YaHei", sans-serif;
+        		}
+        		body {
+            			background-image: url("bg4.png");
+            			padding: 20px;
+        			}
+        		.container {
+            			max-width: 800px;
+            			margin: 0 auto;
+            			background: white;
+            			padding: 30px;
+            			border-radius: 12px;
+            			box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        			}
+        		h1 {
+            			text-align: center;
+            			color: #2c3e50;
+            			margin-bottom: 20px;
+        			}
+        		.chat-box {
+            			height: 400px;
+           			border: 1px solid #ddd;
+            			border-radius: 8px;
+            			padding: 15px;
+            			overflow-y: auto;
+            			margin-bottom: 15px;
+            			background: #fafafa;
+        			}
+        		.msg {
+            			margin: 10px 0;
+            			padding: 10px 14px;
+            			border-radius: 8px;
+            			max-width: 75%;
+        			}
+        		.user {
+            			background: #007bff;
+            			color: white;
+            			margin-left: auto;
+        			}
+        		.ai {
+            			background: #e9ecef;
+            			color: #333;
+        			}
+        		.input-area {
+            			display: flex;
+            			gap: 10px;
+        			}
+        		input {
+            			flex: 1;
+            			padding: 12px 15px;
+            			border: 1px solid #ddd;
+            			border-radius: 8px;
+            			font-size: 16px;
+        			}
+        		button {
+            			padding: 12px 20px;
+            			background: #007bff;
+            			color: white;
+            			border: none;
+            			border-radius: 8px;
+            			cursor: pointer;
+        			}
+    		</style>
+	</head>
+<body>
+    <div class="container">
+        <h1>赵州桥AI</h1>
+        <div class="chat-box" id="chatBox"></div>
+        <div class="input-area">
+            <input id="userInput" placeholder="问我关于赵州桥的问题…" />
+            <button onclick="sendMsg()">发送</button>
+        </div>
+    </div>
+
+    <script>
+        // 赵州桥AI知识库
+        const zhaozhouKnowledge = {
+            "谁建的": "赵州桥由隋朝工匠李春设计建造，是世界现存最早、保存最完整的单孔石拱桥。",
+            "什么时候": "建于隋朝开皇大业年间（约公元595—605年），距今已有1400多年。",
+            "在哪里": "位于河北省石家庄市赵县。",
+            "特点": "单孔、敞肩拱、结构轻巧、抗震强、千年不塌。",
+            "为什么有名": "是中国古代桥梁巅峰之作，开创了敞肩拱型，比欧洲早1200多年。",
+            "长度": "全长50.82米，跨径37.02米。",
+            "材料": "全部用青石建成。",
+            "历史价值": "全国重点文物、世界历史文化遗产级别的古代工程奇迹。"
+        };
+
+        function sendMsg() {
+            const input = document.getElementById("userInput");
+            const text = input.value.trim();
+            if (!text) return;
+
+            addMsg(text, "user");
+            input.value = "";
+
+            // AI回答
+            setTimeout(() => {
+                let answer = matchAnswer(text);
+                addMsg(answer, "ai");
+            }, 600);
+        }
+
+        // 简单AI匹配逻辑
+        function matchAnswer(text) {
+            for (let key in zhaozhouKnowledge) {
+                if (text.includes(key) || key.includes(text)) {
+                    return zhaozhouKnowledge[key];
+                }
+            }
+            return "我还正在学习中，你可以问我赵州桥是谁建的、什么时候建的、在哪里、特点、长度、历史价值等~";
+        }
+
+        function addMsg(content, cls) {
+            const box = document.getElementById("chatBox");
+            const div = document.createElement("div");
+            div.className = "msg " + cls;
+            div.innerText = content;
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+	// 页面加载完成后，自动在对话框中显示欢迎语
+	window.onload = function() {
+ 		addMsg("我是赵州桥AI，你可以问我：谁建的、什么时候建的、在哪里、特点、长度、历史价值等~","ai")
+	}
+    </script>
+</body>
+</html>
